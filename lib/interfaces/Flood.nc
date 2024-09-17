@@ -1,4 +1,3 @@
-// Flood.nc
 interface Flood {
-    command void floodPacket();  // Command to start the flooding protocol
+    command void floodPacket(message_t* msg, uint8_t len);
 }

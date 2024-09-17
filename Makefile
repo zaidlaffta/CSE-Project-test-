@@ -1,5 +1,6 @@
 COMPONENT=NodeC
-
+COMPONENT = AppC
+include $(MAKERULES)
 
 INCLUDE=-IdataStructures
 INCLUDE+=-IdataStructures/interfaces/ -IdataStructures/modules

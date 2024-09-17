@@ -9,10 +9,10 @@ implementation {
     Boot = FloodP.Boot;
     Flood = FloodP.Flood;
 
-    FloodP.AMSend -> ActiveMessageC.AMSend[AM_FLOOD_MSG];
-    FloodP.Receive -> ActiveMessageC.Receive[AM_FLOOD_MSG];
+    FloodP.AMSend -> ActiveMessageC.AMSend[AM_FLOOD];
+    FloodP.Receive -> ActiveMessageC.Receive[AM_FLOOD];
 }
 
 
 
-// git clone https://github.com/zaidlaffta/CS
+// git clone https://github.com/zaidlaffta/CSE160
