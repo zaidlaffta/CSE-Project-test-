@@ -1,11 +1,11 @@
 configuration NeighborDiscoveryC {
     provides interface Boot;
-    provides interface Flood;  // Provide the Flood interface here
+    provides interface Flood;
 }
 
 implementation {
     components NeighborDiscoveryP;
 
     Boot = NeighborDiscoveryP.Boot;
-    Flood = NeighborDiscoveryP.Flood;  // Wire the Flood interface here
+    Flood = NeighborDiscoveryP.Flood;
 }

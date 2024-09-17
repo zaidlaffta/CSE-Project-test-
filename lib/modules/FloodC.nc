@@ -5,6 +5,7 @@ configuration FloodC {
 
 implementation {
     components FloodP, ActiveMessageC;
+    components FloodP;
 
     Boot = FloodP.Boot;
     Flood = FloodP.Flood;
