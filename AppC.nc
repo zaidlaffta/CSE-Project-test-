@@ -1,13 +1,14 @@
+
 configuration AppC {
-    includes interface Boot;    // Include the Boot interface (provided by MainC)
+    includes interface Boot;
 }
 
 implementation {
     components MainC, NeighborDiscoveryC, FloodC;
 
-    // Wire Boot from MainC to NeighborDiscoveryC so it can start on boot
+    // MainC provides Boot, NeighborDiscoveryC requires it
     MainC.Boot -> NeighborDiscoveryC.Boot;
 
-    // Wire Flood interface between NeighborDiscoveryC and FloodC
+    // NeighborDiscoveryC requires Flood, FloodC provides it
     NeighborDiscoveryC.Flood -> FloodC.Flood;
 }
