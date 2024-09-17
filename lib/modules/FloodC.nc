@@ -1,62 +1,14 @@
-module FloodC {
-  uses {
-    interface Boot;
-    interface SplitControl as AMControl;
-    interface AMSend;
-    interface Receive;
-    interface Packet;
-    
-  }
+configuration FloodC {
+    provides interface Boot;
+    provides interface Flood;
 }
 
 implementation {
+    components FloodP, ActiveMessageC;
 
-  message_t packet;
-  uint16_t counter;
-  
-  // Message type
-  typedef nx_struct flood_msg_t {
-    nx_uint16_t counter;
-  } flood_msg_t;
-  
-  enum {
-   printf("This is emum is pring ZZZZZZZZZZZZZZZZZZZZ")
-    AM_FLOODMSG = 6,
-    TIMER_PERIOD_MILLI = 5000,
-  };
+    Boot = FloodP.Boot;
+    Flood = FloodP.Flood;
 
-  event void Boot.booted() {
-    call AMControl.start();
-  }
-
-  event void AMControl.startDone(error_t err) {
-    if (err == SUCCESS) {
-      flood_msg_t *msg = (flood_msg_t *) call Packet.getPayload(&packet, sizeof(flood_msg_t));
-      msg->counter = counter;
-      call AMSend.send(AM_BROADCAST_ADDR, &packet, sizeof(flood_msg_t));
-    }
-  }
-
-  event void AMControl.stopDone(error_t err) {}
-
-  event message_t* Receive.receive(message_t *msg, void *payload, uint8_t len) {
-    flood_msg_t *rcvdMsg = (flood_msg_t *) payload;
-    counter = rcvdMsg->counter;
-
-    // Forward the message
-    flood_msg_t *fwdMsg = (flood_msg_t *) call Packet.getPayload(&packet, sizeof(flood_msg_t));
-    //Test statement
-    printf("We are forwarding messages right now // 48")
-    fwdMsg->counter = counter;
-    call AMSend.send(AM_BROADCAST_ADDR, &packet, sizeof(flood_msg_t));
-
-  
-    return msg;
-  }
-  //printf("AAAAAAAAAAAAAAAAAAAAAAA TEST AAAAAAAAAAAAAA")
-  event void AMSend.sendDone(message_t *msg, error_t error) {
-    if (error == SUCCESS) {
-      // Blink LED when a message is sent
-    }
-  }
+    FloodP.AMSend -> ActiveMessageC.AMSend[AM_FLOOD_MSG];
+    FloodP.Receive -> ActiveMessageC.Receive[AM_FLOOD_MSG];
 }

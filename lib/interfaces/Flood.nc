@@ -1,7 +1,4 @@
-
-configuration FloodP {//publicly accessable functions
+interface Flood {
+    command void floodPacket();
 }
-//this is where you do your wiring. 
- //second time
-//This is un update from local machin to the cloud
-///by Zaid laffta
+
