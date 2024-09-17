@@ -1,14 +1,11 @@
 configuration NeighborDiscoveryC {
     provides interface Boot;
-    provides interface NeighborDiscovery;
+    provides interface Flood;  // Provide the Flood interface here
 }
 
 implementation {
-    components NeighborDiscoveryP, ActiveMessageC;
+    components NeighborDiscoveryP;
 
     Boot = NeighborDiscoveryP.Boot;
-    NeighborDiscovery = NeighborDiscoveryP.NeighborDiscovery;
-
-    NeighborDiscoveryP.AMSend -> ActiveMessageC.AMSend[AM_NEIGHBOR_DISCOVERY];
-    NeighborDiscoveryP.Receive -> ActiveMessageC.Receive[AM_NEIGHBOR_DISCOVERY];
+    Flood = NeighborDiscoveryP.Flood;  // Wire the Flood interface here
 }
